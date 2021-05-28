@@ -80,8 +80,8 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true,
     },
-    fullscreen: true,
-    frame: false,
+    fullscreen: process.env.NODE_ENV === 'production',
+    frame: process.env.NODE_ENV === 'development',
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
