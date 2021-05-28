@@ -80,6 +80,8 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true,
     },
+    fullscreen: true,
+    frame: false,
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -141,11 +143,14 @@ app.on('activate', () => {
 ipcMain.on(EVENTS.LAUNCH_GAME, (_, game: ILibraryItem) => {
   try {
     process.chdir(game.directory as string);
-    console.log('New directory: ' + process.cwd());
     cp.execFile(game.file as string).on('error', (e) => console.log(e));
   } catch (err) {
-    console.log('chdir: ' + err);
+    console.log(`chdir: ${err}`);
   }
+});
+
+ipcMain.on(EVENTS.CLOSE_APP, () => {
+  app.quit();
 });
 
 Store.initRenderer();

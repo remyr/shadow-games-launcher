@@ -6,6 +6,7 @@ import Exit from '../../icons/Exit';
 import { SelectSourceButton } from './SelectSourceButton';
 import { EGSForm } from './EGSForm';
 import { DiskForm } from './DiskForm';
+import closeApp from '../../utils/close';
 
 enum Source {
   Disk,
@@ -35,7 +36,7 @@ const AddGame = () => {
       {source === Source.Disk && <DiskForm />}
       {source === Source.EGS && <EGSForm />}
       <div className="h-16 w-full bg-gray-900 fixed bottom-0 flex items-center justify-between px-8">
-        <div className=""></div>
+        <div className="" />
         <div className="flex items-center">
           <Link
             to="/"
@@ -44,7 +45,11 @@ const AddGame = () => {
             <Left />
             <span className="ml-1">Back</span>
           </Link>
-          <button className="bg-gray-200 p-2 rounded-md flex items-center mx-2">
+          <button
+            onClick={() => closeApp()}
+            type="button"
+            className="bg-gray-200 p-2 rounded-md flex items-center mx-2"
+          >
             <Exit />
             <span className="ml-1">Exit</span>
           </button>

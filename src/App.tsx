@@ -15,6 +15,7 @@ import {
   ControllerStatusOffline,
 } from './components/ControllerStatus';
 import { EVENTS, SUPPORT_GAME_TYPE } from './constants';
+import closeApp from './utils/close';
 
 const Home = () => {
   const [library, setLibrary] = useState<ILibraryItem[]>([]);
@@ -23,13 +24,13 @@ const Home = () => {
 
   // Return index of the first controller. Sometimes if you disconnect the first one, and 2 controllers were connected
   // the first index is 0. To handle buttons pressed on controller, you should specify which index you want to listen.
-  const firstController = () => {
+  const firstController = useCallback(() => {
     const indexes = Object.keys(controllers).map((k) => +k);
     if (indexes.length === 0) {
       return null;
     }
     return Math.min(...indexes);
-  };
+  }, [controllers]);
 
   // Init data (Game library & Gamepads connected)
   useEffect(() => {
@@ -45,8 +46,11 @@ const Home = () => {
     // Check if a controller is connected
     if (gamepads) {
       const connectedGamepads = Object.keys(gamepads)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .map((k: any) => gamepads[k])
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((gamepad: any) => gamepad && gamepad.connected)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .reduce((acc, gamepad: any) => {
           return { ...acc, [gamepad.index]: gamepad };
         }, {});
@@ -68,14 +72,13 @@ const Home = () => {
 
   const selectGame = useCallback(() => {
     const game = library[gameSelected];
-    console.log(game);
 
     if (game.type === SUPPORT_GAME_TYPE.DISK) {
       ipcRenderer.send(EVENTS.LAUNCH_GAME, game);
     }
 
     if (game.type === SUPPORT_GAME_TYPE.EGS) {
-      console.log('open', game.url);
+      // eslint-disable-next-line no-restricted-globals
       open(game.url);
     }
   }, [gameSelected, library]);
@@ -83,6 +86,7 @@ const Home = () => {
   // Handle gamepad controlls
   useEffect(() => {
     const interval = setInterval(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const index: any = firstController();
       const gamepad = navigator.getGamepads()[index];
 
@@ -105,24 +109,31 @@ const Home = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [controllers, gameSelected]);
+  }, [
+    controllers,
+    firstController,
+    gameSelected,
+    nextGame,
+    previousGame,
+    selectGame,
+  ]);
 
   // Callback for event 'Keydown' to move inside games with arrow keys
   const handleDown = useCallback(
     (event: KeyboardEvent) => {
       const { key: pressedKey } = event;
 
-      if ('ArrowLeft' === pressedKey) {
+      if (pressedKey === 'ArrowLeft') {
         previousGame();
       }
-      if ('ArrowRight' === pressedKey) {
+      if (pressedKey === 'ArrowRight') {
         nextGame();
       }
-      if ('Enter' === pressedKey) {
+      if (pressedKey === 'Enter') {
         selectGame();
       }
     },
-    [gameSelected, library]
+    [nextGame, previousGame, selectGame]
   );
 
   // Register event for keydown
@@ -143,6 +154,7 @@ const Home = () => {
           [gamepad.index]: gamepad,
         }));
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setControllers((previousControllers: any) => {
           delete previousControllers[gamepad.index.toString()];
           return { ...previousControllers };
@@ -213,6 +225,7 @@ const Home = () => {
         <div className="flex items-center">
           {process.env.NODE_ENV === 'development' && (
             <button
+              type="button"
               onClick={() => store.clear()}
               className="bg-gray-200 p-2 rounded-md flex items-center mx-2"
             >
@@ -226,7 +239,11 @@ const Home = () => {
             <Settings />
             <span className="ml-1">Configure</span>
           </Link>
-          <button className="bg-gray-200 p-2 rounded-md flex items-center mx-2">
+          <button
+            type="button"
+            className="bg-gray-200 p-2 rounded-md flex items-center mx-2"
+            onClick={() => closeApp()}
+          >
             <Exit />
             <span className="ml-1">Exit</span>
           </button>
