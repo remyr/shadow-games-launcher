@@ -142,7 +142,7 @@ ipcMain.on(EVENTS.LAUNCH_GAME, (_, game: ILibraryItem) => {
   try {
     process.chdir(game.directory as string);
     console.log('New directory: ' + process.cwd());
-    cp.exec(game.file as string).on('error', (e) => console.log(e));
+    cp.execFile(game.file as string).on('error', (e) => console.log(e));
   } catch (err) {
     console.log('chdir: ' + err);
   }
