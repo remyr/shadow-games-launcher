@@ -37,7 +37,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [selected, setSelected] = useState(0);
   const [ref, bounds] = useMeasure();
-  const [loading, setLoading] = useState(true);
   const [columns, setColumns] = useState(0);
   const [rows, setRows] = useState(0);
   const [pageSize, setPageSize] = useState(0);
@@ -55,8 +54,6 @@ const Home = () => {
     setColumns(columnsCount);
     setRows(rowsCount);
     setPageSize(pageCount);
-
-    setLoading(false);
   }, [bounds]);
 
   useEffect(() => {
@@ -124,7 +121,7 @@ const Home = () => {
   return (
     <div
       ref={ref}
-      className="absolute top-16 bottom-16 left-0 right-0 p-8 overflow-hidden grid grid-cols-4 gap-y-2 gap-x-8"
+      className={`absolute top-16 bottom-16 left-0 right-0 p-8 overflow-hidden grid grid-cols-${columns} gap-y-2 gap-x-8`}
     >
       {/* <div className=""> */}
       {items.map((game, index) => (

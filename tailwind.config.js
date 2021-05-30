@@ -12,6 +12,9 @@ module.exports = {
         '116': '29rem',
         '120': '30rem',
       },
+      screens: {
+        '4k': '160rem',
+      },
     },
   },
   variants: {},
