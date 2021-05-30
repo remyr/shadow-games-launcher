@@ -11,7 +11,7 @@ export const ControllerStatusOnline = ({
 }: ControllerDisplayInfoProps) => {
   return (
     <div className="text-green-500 border border-green-500 p-2 rounded-md flex items-center">
-      <div className="h-3 w-3 bg-green-400 rounded-full mr-2"></div>
+      <div className="h-3 w-3 bg-green-400 rounded-full mr-2" />
       <span>{text}</span>
     </div>
   );

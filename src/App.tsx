@@ -4,6 +4,9 @@ import { ipcRenderer } from 'electron';
 
 import './App.global.css';
 
+import Layout from './components/Layout';
+import HomeScreen from './screens/Home';
+
 import store, { ILibraryItem } from './store';
 
 import Settings from './icons/Settings';
@@ -188,7 +191,7 @@ const Home = () => {
   }, [handleGamepadConnexion]);
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gray-800">
+    <div className="h-screen w-screen flex flex-col">
       <h1 className="text-center text-2xl text-white mt-8">Game Launcher</h1>
       <div className="flex items-center justify-center relative mt-32">
         {library.length > 0 && (
@@ -256,10 +259,12 @@ const Home = () => {
 export default function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/add-game" component={AddGame} />
-        <Route exact path="/" component={Home} />
-      </Switch>
+      <Layout>
+        <Switch>
+          {/* <Route path="/add-game" component={AddGame} /> */}
+          <Route exact path="/" component={HomeScreen} />
+        </Switch>
+      </Layout>
     </Router>
   );
 }
