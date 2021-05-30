@@ -10,6 +10,7 @@ module.exports = {
         html: true,
       },
     ],
+    'react/prop-types': 0,
   },
   parserOptions: {
     ecmaVersion: 2020,
