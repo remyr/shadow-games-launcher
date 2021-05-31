@@ -6,6 +6,7 @@ import chunk from '../utils/chunk';
 
 import Card from '../components/Card';
 import useKeyPress from '../hooks/useKeyPress';
+import useWindowDimensions from '../hooks/useWindowDimension';
 
 const images = [
   'https://media.rawg.io/media/games/0bc/0bcc108295a244b488d5c25f7d867220.jpg',
@@ -33,6 +34,7 @@ const PADDING_X = 128;
 const PADDING_Y = 0;
 
 const Home = () => {
+  const { width } = useWindowDimensions();
   const [items, setItems] = useState<ILibraryItem[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [selected, setSelected] = useState(0);
@@ -46,15 +48,21 @@ const Home = () => {
   const arrowLeft = useKeyPress('ArrowLeft');
   const arrowRight = useKeyPress('ArrowRight');
 
+  const ratio = width > 2560 ? 2 : 1;
+
   useEffect(() => {
-    const columnsCount = Math.floor((bounds.width - PADDING_X) / CARD_WIDTH);
-    const rowsCount = Math.floor((bounds.height - PADDING_Y) / CARD_HEIGHT);
+    const columnsCount = Math.floor(
+      (bounds.width - PADDING_X * ratio) / (CARD_WIDTH * ratio)
+    );
+    const rowsCount = Math.floor(
+      (bounds.height - PADDING_Y * ratio) / (CARD_HEIGHT * ratio)
+    );
     const pageCount = columnsCount * rowsCount;
 
     setColumns(columnsCount);
     setRows(rowsCount);
     setPageSize(pageCount);
-  }, [bounds]);
+  }, [bounds, ratio]);
 
   useEffect(() => {
     if (pageSize !== 0) {
@@ -121,7 +129,7 @@ const Home = () => {
   return (
     <div
       ref={ref}
-      className={`absolute top-16 bottom-16 left-0 right-0 p-8 overflow-hidden grid grid-cols-${columns} gap-y-2 gap-x-8`}
+      className={`absolute top-16 4k:top-32 bottom-16 4k:bottom-32 left-0 right-0 p-8 4k:p-16 overflow-hidden grid grid-cols-${columns} gap-y-2 4k:gap-y-4 gap-x-8`}
     >
       {/* <div className=""> */}
       {items.map((game, index) => (
