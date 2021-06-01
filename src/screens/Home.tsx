@@ -23,6 +23,7 @@ const images = [
   // 'https://media.rawg.io/media/games/1be/1bed7fae69d1004c09dfe1101d5a3a94.jpg',
 ];
 const DATA: ILibraryItem[] = images.map((image, idx) => ({
+  id: idx,
   coverUrl: image,
   name: `Random placeholder ${idx}`,
   type: 'disk',
@@ -132,8 +133,8 @@ const Home = () => {
       className={`absolute top-16 4k:top-32 bottom-16 4k:bottom-32 left-0 right-0 p-8 4k:p-16 overflow-hidden grid grid-cols-${columns} gap-y-2 4k:gap-y-4 gap-x-8`}
     >
       {/* <div className=""> */}
-      {items.map((game, index) => (
-        <Card key={game.name} data={game} selected={selected === index} />
+      {items.map((game) => (
+        <Card key={game.id} data={game} selected={selected === game.id} />
       ))}
       {/* </div> */}
     </div>

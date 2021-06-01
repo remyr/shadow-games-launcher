@@ -1,6 +1,7 @@
 import Store from 'electron-store';
 
 export interface ILibraryItem {
+  id: string | number;
   coverUrl: string;
   name: string;
   type: string;
