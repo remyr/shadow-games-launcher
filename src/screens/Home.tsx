@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
+import { useTransition, animated } from 'react-spring';
 
 import { ILibraryItem } from '../store';
 import chunk from '../utils/chunk';
@@ -49,8 +50,22 @@ const Home = () => {
   const arrowLeft = useKeyPress('ArrowLeft');
   const arrowRight = useKeyPress('ArrowRight');
 
+  const transition = useTransition(items, {
+    from: {
+      opacity: 0,
+      x: -50,
+    },
+    enter: (_, index) => ({
+      opacity: 1,
+      x: 0,
+      delay: 100 * index,
+    }),
+    config: { duration: 300 },
+  });
+
   const ratio = width > 2560 ? 2 : 1;
 
+  // Init grid from size window
   useEffect(() => {
     const columnsCount = Math.floor(
       (bounds.width - PADDING_X * ratio) / (CARD_WIDTH * ratio)
@@ -65,6 +80,7 @@ const Home = () => {
     setPageSize(pageCount);
   }, [bounds, ratio]);
 
+  // Select chunk of data from current page
   useEffect(() => {
     if (pageSize !== 0) {
       const chunkedData = chunk<ILibraryItem>(DATA, pageSize);
@@ -72,6 +88,7 @@ const Home = () => {
     }
   }, [currentPage, pageSize]);
 
+  // Handle controls
   useEffect(() => {
     if (arrowRight) {
       const nextTarget = selected + 1;
@@ -127,15 +144,25 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrowDown, arrowUp, arrowLeft, arrowRight, columns, pageSize]);
 
+  const fragment = transition((styles, game) => (
+    <Card
+      key={game.id}
+      style={styles}
+      data={game}
+      selected={selected === game.id}
+    />
+  ));
+
   return (
     <div
       ref={ref}
       className={`absolute top-16 4k:top-32 bottom-16 4k:bottom-32 left-0 right-0 p-8 4k:p-16 overflow-hidden grid grid-cols-${columns} gap-y-2 4k:gap-y-4 gap-x-8`}
     >
+      {fragment}
       {/* <div className=""> */}
-      {items.map((game) => (
+      {/* {items.map((game) => (
         <Card key={game.id} data={game} selected={selected === game.id} />
-      ))}
+      ))} */}
       {/* </div> */}
     </div>
   );
