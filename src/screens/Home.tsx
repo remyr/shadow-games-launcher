@@ -71,6 +71,15 @@ const Home = () => {
 
   const ratio = width > 2560 ? 2 : 1;
 
+  useEffect(() => {
+    // Get game saved
+    // const libraryData = store.get('library');
+    // setLibrary(libraryData);
+    // if (libraryData.length > 0) {
+    //   setGameSelected(0);
+    // }
+  }, []);
+
   // Init grid from size window
   useEffect(() => {
     const columnsCount = Math.floor(
@@ -163,6 +172,19 @@ const Home = () => {
     gamepadButtonRight,
     gamepadButtonUp,
   ]);
+
+  // const selectGame = useCallback(() => {
+  //   const game = library[gameSelected];
+
+  //   if (game.type === SUPPORT_GAME_TYPE.DISK) {
+  //     ipcRenderer.send(EVENTS.LAUNCH_GAME, game);
+  //   }
+
+  //   if (game.type === SUPPORT_GAME_TYPE.EGS) {
+  //     // eslint-disable-next-line no-restricted-globals
+  //     open(game.url);
+  //   }
+  // }, [gameSelected, library]);
 
   const fragment = transition((styles, game) => (
     <Card
