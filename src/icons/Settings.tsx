@@ -1,9 +1,11 @@
 import * as React from 'react';
 
-const Settings: React.FC = () => {
+import { IconProps } from './types';
+
+const Settings: React.FunctionComponent<IconProps> = ({ className }) => {
   return (
     <svg
-      className="h-5 w-5"
+      className={className}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
