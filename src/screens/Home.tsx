@@ -8,6 +8,7 @@ import chunk from '../utils/chunk';
 import Card from '../components/Card';
 import useKeyPress from '../hooks/useKeyPress';
 import useWindowDimensions from '../hooks/useWindowDimension';
+import useGamepadControlls, { GamepadCode } from '../hooks/useGamepadControlls';
 
 const images = [
   'https://media.rawg.io/media/games/0bc/0bcc108295a244b488d5c25f7d867220.jpg',
@@ -50,6 +51,11 @@ const Home = () => {
   const arrowLeft = useKeyPress('ArrowLeft');
   const arrowRight = useKeyPress('ArrowRight');
 
+  const gamepadButtonUp = useGamepadControlls(GamepadCode.UP);
+  const gamepadButtonDown = useGamepadControlls(GamepadCode.DOWN);
+  const gamepadButtonLeft = useGamepadControlls(GamepadCode.LEFT);
+  const gamepadButtonRight = useGamepadControlls(GamepadCode.RIGHT);
+
   const transition = useTransition(items, {
     from: {
       opacity: 0,
@@ -90,7 +96,7 @@ const Home = () => {
 
   // Handle controls
   useEffect(() => {
-    if (arrowRight) {
+    if (arrowRight || gamepadButtonRight) {
       const nextTarget = selected + 1;
       if (nextTarget <= DATA.length - 1) {
         setSelected((previousValue) => previousValue + 1);
@@ -99,7 +105,7 @@ const Home = () => {
         }
       }
     }
-    if (arrowLeft) {
+    if (arrowLeft || gamepadButtonLeft) {
       const nextTarget = selected - 1;
       if (nextTarget >= 0) {
         setSelected((previousValue) => previousValue - 1);
@@ -110,7 +116,7 @@ const Home = () => {
         }
       }
     }
-    if (arrowUp) {
+    if (arrowUp || gamepadButtonUp) {
       const nextTarget = selected - columns;
       let topShift = columns;
       if (nextTarget < rows * columns * currentPage) {
@@ -118,8 +124,7 @@ const Home = () => {
       }
       setSelected((previousValue) => previousValue - topShift);
     }
-
-    if (arrowDown) {
+    if (arrowDown || gamepadButtonDown) {
       const nextTarget = selected + columns;
 
       const itemsDisplayed = rows * columns * (currentPage + 1);
@@ -129,6 +134,10 @@ const Home = () => {
       // const itemCurrentRow = Math.round(
       //   (selected - rowCount * columnsCount * currentPage) / columnsCount,
       // );
+
+      if (nextTarget > DATA.length - 1) {
+        return;
+      }
 
       if (nextTarget < itemsDisplayed) {
         if (freeSpace > 0 && nextTarget > DATA.length) {
@@ -142,7 +151,18 @@ const Home = () => {
       setSelected((previousValue) => previousValue + bottomShift);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arrowDown, arrowUp, arrowLeft, arrowRight, columns, pageSize]);
+  }, [
+    arrowDown,
+    arrowUp,
+    arrowLeft,
+    arrowRight,
+    columns,
+    pageSize,
+    gamepadButtonDown,
+    gamepadButtonLeft,
+    gamepadButtonRight,
+    gamepadButtonUp,
+  ]);
 
   const fragment = transition((styles, game) => (
     <Card
