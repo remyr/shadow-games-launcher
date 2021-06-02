@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
-import { useTransition, animated } from 'react-spring';
+import { useTransition } from 'react-spring';
 
 import { ILibraryItem } from '../store';
 import chunk from '../utils/chunk';
@@ -159,11 +159,6 @@ const Home = () => {
       className={`absolute top-16 4k:top-32 bottom-16 4k:bottom-32 left-0 right-0 p-8 4k:p-16 overflow-hidden grid grid-cols-${columns} gap-y-2 4k:gap-y-4 gap-x-8`}
     >
       {fragment}
-      {/* <div className=""> */}
-      {/* {items.map((game) => (
-        <Card key={game.id} data={game} selected={selected === game.id} />
-      ))} */}
-      {/* </div> */}
     </div>
   );
 };
