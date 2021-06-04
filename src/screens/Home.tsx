@@ -31,9 +31,9 @@ const DATA: ILibraryItem[] = images.map((image, idx) => ({
   type: 'disk',
 }));
 
-const CARD_WIDTH = 384;
-const CARD_HEIGHT = 256;
-const PADDING_X = 128;
+const CARD_WIDTH = 342;
+const CARD_HEIGHT = 208;
+const PADDING_X = 64;
 const PADDING_Y = 0;
 
 const Home = () => {
@@ -198,7 +198,7 @@ const Home = () => {
   return (
     <div
       ref={ref}
-      className={`absolute top-16 4k:top-32 bottom-16 4k:bottom-32 left-0 right-0 p-8 4k:p-16 overflow-hidden grid grid-cols-${columns} gap-y-2 4k:gap-y-4 gap-x-8`}
+      className={`absolute top-16 bottom-16 4k:bottom-32 left-0 right-0 px-8 py-12 overflow-hidden grid grid-cols-${columns} gap-8`}
     >
       {fragment}
     </div>

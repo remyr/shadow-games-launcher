@@ -10,12 +10,12 @@ const Footer = () => {
   const { firstGamepad } = useGamepads();
 
   return (
-    <div className="flex items-center justify-between w-full bg-black h-16 shadow-md text-white font-orbitron capitalize 4k:h-32 4k:text-3xl px-8 4k:px-16">
+    <footer className="bg-gradient-to-b from-gray-800 to-gray-900 flex items-center justify-between px-8 text-gray-500 h-16 ">
       <DisplayConnectedGamepad gamepad={firstGamepad} />
       <Link to="/configuration">
-        <Settings className="w-7 h-7 text-gray-400 hover:text-white transition duration-300" />
+        <Settings className="w-7 h-7 text-gray-500 hover:text-white transition duration-300" />
       </Link>
-    </div>
+    </footer>
   );
 };
 

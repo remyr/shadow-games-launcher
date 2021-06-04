@@ -1,24 +1,25 @@
 import React from 'react';
 
+import Warning from '../../icons/Warning';
+import Wifi from '../../icons/Wifi';
+
 type DisplayConnectedGamepadProps = {
   gamepad: Gamepad | null;
 };
 
 const DisplayConnectedGamepad = ({ gamepad }: DisplayConnectedGamepadProps) => {
+  if (!gamepad) {
+    return (
+      <div className="border-2 border-gray-500 p-2 rounded-lg flex items-center">
+        <Warning className="w-6 h-6 mr-1" />
+        No controller connected
+      </div>
+    );
+  }
   return (
-    <div
-      className={`border p-2 text-sm flex items-center ${
-        gamepad
-          ? 'border-green-500 text-green-500'
-          : 'border-gray-400 text-gray-400'
-      }`}
-    >
-      <div
-        className={`rounded-full w-3 h-3 mr-2 ${
-          gamepad ? 'bg-green-500' : 'bg-gray-400'
-        }`}
-      />
-      {gamepad ? gamepad.id.split('(')[0] : 'No controller connected'}
+    <div className="border-2 border-green-500 p-2 rounded-lg flex items-center text-green-500">
+      <Wifi className="w-6 h-6 mr-1" />
+      {gamepad.id.split('(')[0]}
     </div>
   );
 };

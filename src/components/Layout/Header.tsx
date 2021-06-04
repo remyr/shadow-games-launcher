@@ -18,9 +18,11 @@ const Header = () => {
   }, [location]);
 
   return (
-    <div className="flex items-center justify-center w-full bg-black h-16 shadow-md text-white font-orbitron capitalize 4k:h-32 4k:text-3xl">
-      Shadow Launcher {title && ` - ${title}`}
-    </div>
+    <header className="flex items-center justify-center w-full text-white font-orbitron capitalize border-b border-gray-200 bg-white text-xl h-16">
+      <h1 className="text-yellow-500">
+        Shadow Games Launcher {title && ` - ${title}`}
+      </h1>
+    </header>
   );
 };
 

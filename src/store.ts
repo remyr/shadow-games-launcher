@@ -10,13 +10,23 @@ export interface ILibraryItem {
   url?: string;
 }
 
+export interface IAppConfiguration {
+  isFullScreen: boolean;
+  onStartup: boolean;
+}
+
 export interface IStore {
   library: ILibraryItem[];
+  appConfig: IAppConfiguration;
 }
 
 const store = new Store<IStore>({
   defaults: {
     library: [],
+    appConfig: {
+      isFullScreen: false,
+      onStartup: false,
+    },
   },
 });
 
