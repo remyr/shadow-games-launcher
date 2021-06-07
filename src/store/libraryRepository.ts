@@ -19,13 +19,23 @@ class LibraryRepository {
     return library;
   }
 
-  addGame(game: ILibraryItem) {
+  addGame(game: ILibraryItem): ILibraryItem[] {
     const library = this.store.get('library');
 
-    this.store.set('library', [
-      ...library,
-      { ...game, order: library.length + 1 },
-    ]);
+    const newLibrary = [...library, { ...game, order: library.length + 1 }];
+
+    this.store.set('library', newLibrary);
+
+    return newLibrary;
+  }
+
+  removeGame(id: string | number): ILibraryItem[] {
+    const library = this.store.get('library');
+    const newLibrary = library.filter((game) => game.id !== id);
+
+    this.store.set('library', newLibrary);
+
+    return newLibrary;
   }
 }
 

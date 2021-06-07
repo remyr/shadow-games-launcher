@@ -45,9 +45,7 @@ const Card: React.FunctionComponent<CardProps> = ({
           <div className="absolute top-0 bottom-0 left-0 right-0 bg-yellow-500 opacity-50 z-20 rounded-xl" />
           <div className="absolute top-0 bottom-0 left-0 right-0 z-30 flex items-center justify-center flex-col">
             <Play className="w-12 h-12 text-white" />
-            <p className="font-orbitron text-white">
-              Assassin`&apos;`s creed 3
-            </p>
+            <p className="font-orbitron text-white">{data.name}</p>
           </div>
         </>
       )}

@@ -14,14 +14,20 @@ const LibraryConfiguration = () => {
   }, []);
 
   const handleSubmit = (game: ILibraryItem) => {
-    setData((previousData) => [...previousData, game]);
-    LibraryRepository.addGame(game);
+    const newLibrary = LibraryRepository.addGame(game);
+    setData(newLibrary);
+  };
+
+  const removeGame = (id: string | number) => {
+    const newLibrary = LibraryRepository.removeGame(id);
+
+    setData(newLibrary);
   };
 
   return (
     <div className="flex py-8">
       <AddGameForm submit={handleSubmit} />
-      <GamesList data={data} />
+      <GamesList remove={removeGame} data={data} />
     </div>
   );
 };

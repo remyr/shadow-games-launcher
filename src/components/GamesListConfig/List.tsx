@@ -4,9 +4,10 @@ import { ILibraryItem } from '../../store/store';
 
 type LibraryProps = {
   data: ILibraryItem[];
+  remove: (id: string | number) => void;
 };
 
-const Library: React.FunctionComponent<LibraryProps> = ({ data }) => {
+const Library: React.FunctionComponent<LibraryProps> = ({ data, remove }) => {
   return (
     <div className="flex-1">
       <div className="shadow rounded ml-8 overflow-hidden">
@@ -63,8 +64,8 @@ const Library: React.FunctionComponent<LibraryProps> = ({ data }) => {
                     Edit
                   </button>
                   <button
+                    onClick={() => remove(game.id)}
                     type="button"
-                    disabled
                     // href="/"
                     className="bg-red-500 py-1 px-4 text-white rounded shadow hover:bg-red-400 transition duration-300"
                   >
