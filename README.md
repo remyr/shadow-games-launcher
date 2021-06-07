@@ -17,9 +17,9 @@ At the moment, the application supports games installed on your disk (from steam
 ### TODO
 
 - [x] Grid responsive
-- [ ] Detect & Display gamepads connected
+- [x] Detect & Display gamepads connected
 - [x] Navigate with arrow keys
-- [ ] Navigate with gamepad
-- [ ] Add / Remove game in library
+- [x] Navigate with gamepad
+- [x] Add / Remove game in library
 - [ ] Re-order games
 - [ ] Configure application (fullscreen, on startup)
