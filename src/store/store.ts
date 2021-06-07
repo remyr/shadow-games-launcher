@@ -8,6 +8,7 @@ export interface ILibraryItem {
   directory?: string;
   file?: string;
   url?: string;
+  order?: number;
 }
 
 export interface IAppConfiguration {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
 import { useTransition } from 'react-spring';
 
-import { ILibraryItem } from '../store';
+import { ILibraryItem } from '../store/store';
 import chunk from '../utils/chunk';
 
 import Card from '../components/Card';

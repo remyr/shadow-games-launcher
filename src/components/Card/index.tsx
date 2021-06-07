@@ -1,6 +1,6 @@
 import React from 'react';
 import { animated } from 'react-spring';
-import { ILibraryItem } from '../../store';
+import { ILibraryItem } from '../../store/store';
 
 import Play from '../../icons/Play';
 

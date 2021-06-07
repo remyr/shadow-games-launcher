@@ -185,6 +185,7 @@
     "@types/react-dom": "^16.9.9",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-test-renderer": "^16.9.3",
+    "@types/uuid": "^8.3.0",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
@@ -252,6 +253,8 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
@@ -265,7 +268,8 @@
     "react-spring": "^9.2.1",
     "react-use-measure": "^2.0.4",
     "regenerator-runtime": "^0.13.5",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "uuid": "^8.3.2"
   },
   "devEngines": {
     "node": ">=10.x",

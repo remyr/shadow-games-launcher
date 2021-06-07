@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-gray-800 to-gray-900 flex items-center justify-between px-8 text-gray-500 h-16 ">
       <DisplayConnectedGamepad gamepad={firstGamepad} />
-      <Link to="/configuration">
+      <Link to="/configuration/library">
         <Settings className="w-7 h-7 text-gray-500 hover:text-white transition duration-300" />
       </Link>
     </footer>

@@ -10,6 +10,14 @@ module.exports = {
         html: true,
       },
     ],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
     'react/prop-types': 0,
     'react/require-default-props': 0,
   },

@@ -19,7 +19,7 @@ import cp from 'child_process';
 
 import MenuBuilder from './menu';
 import { EVENTS } from './constants';
-import { ILibraryItem } from './store';
+import { ILibraryItem } from './store/store';
 
 export default class AppUpdater {
   constructor() {
