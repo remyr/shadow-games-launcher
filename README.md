@@ -21,5 +21,6 @@ At the moment, the application supports games installed on your disk (from steam
 - [x] Navigate with arrow keys
 - [x] Navigate with gamepad
 - [x] Add / Remove game in library
-- [ ] Re-order games
+- [x] Re-order games
 - [ ] Configure application (fullscreen, on startup)
+- [ ] Handle big screen display (TV 4k)

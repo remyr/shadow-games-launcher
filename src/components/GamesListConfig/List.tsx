@@ -5,9 +5,14 @@ import { ILibraryItem } from '../../store/store';
 type LibraryProps = {
   data: ILibraryItem[];
   remove: (id: string | number) => void;
+  changeOrder: (index: number, direction: number) => void;
 };
 
-const Library: React.FunctionComponent<LibraryProps> = ({ data, remove }) => {
+const Library: React.FunctionComponent<LibraryProps> = ({
+  data,
+  remove,
+  changeOrder,
+}) => {
   return (
     <div className="flex-1">
       <div className="shadow rounded ml-8 overflow-hidden">
@@ -39,12 +44,26 @@ const Library: React.FunctionComponent<LibraryProps> = ({ data, remove }) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((game) => (
+            {data.map((game, index) => (
               <tr key={game.name}>
                 <td className="px-6 py-2 whitespace-nowrap flex items-center">
                   <div className="mr-2 text-gray-300">
-                    <ChevronUpIcon className="h-5 w-5 hover:text-gray-500 cursor-pointer transition-all duration-300" />
-                    <ChevronDownIcon className="h-5 w-5 hover:text-gray-500 cursor-pointer" />
+                    <ChevronUpIcon
+                      onClick={() => changeOrder(index, -1)}
+                      className={`h-5 w-5 ${
+                        index === 0
+                          ? 'opacity-50'
+                          : 'hover:text-gray-500 cursor-pointer transition-all duration-300'
+                      }`}
+                    />
+                    <ChevronDownIcon
+                      onClick={() => changeOrder(index, 1)}
+                      className={`h-5 w-5 ${
+                        index === data.length - 1
+                          ? 'opacity-50'
+                          : 'hover:text-gray-500 cursor-pointer transition-all duration-300'
+                      }`}
+                    />
                   </div>
                   {game.order}
                 </td>

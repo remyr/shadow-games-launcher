@@ -16,7 +16,7 @@ class LibraryRepository {
   getAllGames(): ILibraryItem[] {
     const library = this.store.get('library');
 
-    return library;
+    return library.sort((a, b) => (a.order as number) - (b.order as number));
   }
 
   addGame(game: ILibraryItem): ILibraryItem[] {
@@ -31,11 +31,18 @@ class LibraryRepository {
 
   removeGame(id: string | number): ILibraryItem[] {
     const library = this.store.get('library');
-    const newLibrary = library.filter((game) => game.id !== id);
+    const newLibrary = library
+      .filter((game) => game.id !== id)
+      .sort((a, b) => (a.order as number) - (b.order as number))
+      .map((game, index) => ({ ...game, order: index + 1 }));
 
     this.store.set('library', newLibrary);
 
     return newLibrary;
+  }
+
+  save(data: ILibraryItem[]) {
+    this.store.set('library', data);
   }
 }
 
